@@ -52,6 +52,19 @@ class Ray():
 
     def __str__(self):
         return f"Ray( Ursprung={self.origin}, direction={self.direction})"
+    
+    def find_step_to_value(self, value: float, xyz: int) -> float:
+        """Berechnet benötigten meter am Strahl bis zu einem übergeben Wert auf der x/y/z Achse
+        Parameter:
+        -xyz: Integer von 0 bis 2 welcher die Dimension representiert
+        -value: Der bekannte wert der erreicht werden soll
+        Result: -Wieviele Schritte (meter) der Strahl braucht bis zu dem angegebenen Wert"""
+        assert xyz in (0,1,2)
+        assert self.direction[xyz] != 0
+        
+        ergebnis = (value - self.origin[xyz]) / self.direction[xyz]
+        
+        return ergebnis 
 
     def draw_ray(self, ax, t):
         """Plottet den Strahl als t-meter langes Liniensegment auf eine übergebene axes"""
