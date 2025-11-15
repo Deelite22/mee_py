@@ -55,7 +55,7 @@ class Ray():
         return f"Ray( Ursprung={self.origin}, direction={self.direction})"
         
     def slab_test(self, box: copc.Box) -> bool:
-        """Führt einen vektorisierten slab-Test mit einer copc.Box instanz aus"""
+        """Führt einen vektorisierten slab-Test mit einer copc.Box Instanz aus"""
         t_min, t_max = 0.0, np.inf
         box_min = np.array([box.x_min, box.y_min, box.z_min])
         box_max = np.array([box.x_max, box.y_max, box.z_max])
@@ -74,7 +74,7 @@ class Ray():
         return (t_min < t_max)
 
 # Argument parser erstellen
-parser = argparse.ArgumentParser(description="Ein Script welches alle Punkte in einem radius um einen Bildstrahl aus einer copc Datei extrahiert")
+parser = argparse.ArgumentParser(description="Ein Script welches alle Punkte in einem Radius um einen Bildstrahl aus einer copc Datei extrahiert")
 
 # Input file path
 parser.add_argument("-i", "--input", required=True, type=str,
@@ -108,7 +108,7 @@ boxes = []
 for entry in all_entries:
     boxes.append(copc.Box(entry.key, las_header)) 
 
-print(f"Einlesen erfolgreich\nDauer: {round(1000*(time.time()-start1),1)} ms\n")
+print(f"Einlesen erfolgreich!\nDauer: {round(1000*(time.time()-start1),1)} ms\n")
 
 print("Starte Schnitttest des Strahles mit den Nodes...")
 start = time.time()
@@ -124,7 +124,7 @@ for entry in all_entries:
         intersected_nodes.append(entry)
         intersected_boxes.append(box)
 
-print(f"Schnittest erfolgreich!\nDurchdrungene Nodes: {len(intersected_nodes)}\nDauer: {round(1000*(time.time()-start),1)} ms\n")
+print(f"Schnitttest erfolgreich!\nDurchdrungene Nodes: {len(intersected_nodes)}\nDauer: {round(1000*(time.time()-start),1)} ms\n")
 
 print(f"Starte Extraktion der Punkte im Umkreis von {args.radius} m um den Strahl...")
 start = time.time()
@@ -173,6 +173,7 @@ abstandsquadrate_maske = abstandsquadrate < (args.radius**2)
 
 # anwenden der Maske
 punkte_im_zylinder_global = punkte[abstandsquadrate_maske]
+
 print(f"""Punkte erfolgreich extrahiert!
 Gefundene Punkte: {len(punkte_im_zylinder_global)}
 Gespeichert in: {args.outputfile}
